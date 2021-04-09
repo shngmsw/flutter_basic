@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
         if (settings.name == '/second') {
           var messageFromFirst = settings.arguments;
           return MaterialPageRoute(
-            builder: (context) {
-              return SecondPage(messageFromFirst);
-            },
-          );
+              builder: (context) {
+                return SecondPage(messageFromFirst);
+              },
+              fullscreenDialog: true);
         }
         return null;
       },
