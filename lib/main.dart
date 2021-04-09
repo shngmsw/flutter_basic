@@ -9,11 +9,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => FirstPage(),
+        '/second': (context) => SecondPage(),
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: FirstPage(),
     );
   }
 }
@@ -25,13 +29,10 @@ class FirstPage extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
           onPressed: () async {
-            var message = await Navigator.push(
+            var message = await Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                  builder: (context) {
-                    return SecondPage('messageFromFirst');
-                  },
-                  fullscreenDialog: true),
+              "/second",
+              arguments: "messageFromFirst",
             );
             print(message);
           },
@@ -43,9 +44,9 @@ class FirstPage extends StatelessWidget {
 }
 
 class SecondPage extends StatelessWidget {
-  final String messageFromFirst;
-  SecondPage(this.messageFromFirst);
   Widget build(BuildContext context) {
+    var messageFromFirst = ModalRoute.of(context).settings.arguments;
+    print(messageFromFirst);
     return Scaffold(
       appBar: AppBar(title: const Text('Second Page')),
       body: Center(
