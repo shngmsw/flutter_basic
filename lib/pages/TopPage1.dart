@@ -30,15 +30,20 @@ class _HomePage extends StatefulWidget {
 
   @override
   _HomePageState createState() => _HomePageState();
-
-  static _HomePageState of(BuildContext context, {bool rebuild = true}) {
-    if (rebuild) {
-      return (context.dependOnInheritedWidgetOfExactType<_MyInheritedWidget>())
-          .data;
-    }
-    return (context
-            .getElementForInheritedWidgetOfExactType<_MyInheritedWidget>()
-            .widget as _MyInheritedWidget)
+  //
+  // static _HomePageState of(BuildContext context, {bool rebuild = true}) {
+  //   if (rebuild) {
+  //     return (context.dependOnInheritedWidgetOfExactType<_MyInheritedWidget>())
+  //         .data;
+  //   }
+  //   return (context
+  //           .getElementForInheritedWidgetOfExactType<_MyInheritedWidget>()
+  //           .widget as _MyInheritedWidget)
+  //       .data;
+  // }
+  static _HomePageState of(BuildContext context, String aspect) {
+    return InheritedModel.inheritFrom<_MyInheritedWidget>(context,
+            aspect: aspect)
         .data;
   }
 }
@@ -61,7 +66,8 @@ class _HomePageState extends State<_HomePage> {
   }
 }
 
-class _MyInheritedWidget extends InheritedWidget {
+class _MyInheritedWidget extends InheritedModel {
+  @override
   _MyInheritedWidget({
     Key key,
     @required Widget child,
@@ -69,6 +75,11 @@ class _MyInheritedWidget extends InheritedWidget {
   }) : super(key: key, child: child);
 
   final _HomePageState data;
+
+  @override
+  bool updateShouldNotifyDependent(_MyInheritedWidget old, Set aspects) {
+    return aspects.contains('A');
+  }
 
   @override
   bool updateShouldNotify(_MyInheritedWidget oldWidget) {
@@ -81,7 +92,7 @@ class _WidgetA extends StatelessWidget {
   Widget build(BuildContext context) {
     print("called _WidgetA#build()");
 
-    final _HomePageState state = _HomePage.of(context);
+    final _HomePageState state = _HomePage.of(context, 'A');
 
     return Center(
       child: Text(
@@ -104,7 +115,7 @@ class _WidgetC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("called _WidgetC#build()");
-    final _HomePageState state = _HomePage.of(context, rebuild: false);
+    final _HomePageState state = _HomePage.of(context, 'C');
     // ignore: deprecated_member_use
     return RaisedButton(
       onPressed: () {
