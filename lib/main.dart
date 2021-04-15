@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './pages/TopPage0.dart';
 import './pages/TopPage1.dart';
+import './pages/TopPage3.dart';
+import './pages/TopPage3_1.dart';
 
 void main() {
   runApp(MyApp());
@@ -51,6 +53,26 @@ class MyHomePage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => TopPage1(),
+                        fullscreenDialog: true,
+                      ));
+                }),
+            ListTile(
+                title: const Text("StreamBuilderの場合"),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TopPage3_0(),
+                        fullscreenDialog: true,
+                      ));
+                }),
+            ListTile(
+                title: const Text("BLoC with InheritedWidget"),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TopPage3_1(),
                         fullscreenDialog: true,
                       ));
                 }),
