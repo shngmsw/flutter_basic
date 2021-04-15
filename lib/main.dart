@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import './pages/TopPage0.dart';
 import './pages/TopPage1.dart';
 import './pages/TopPage3.dart';
-import './pages/TopPage3_1.dart';
 
 void main() {
   runApp(MyApp());
@@ -67,12 +66,12 @@ class MyHomePage extends StatelessWidget {
                       ));
                 }),
             ListTile(
-                title: const Text("BLoC with InheritedWidget"),
+                title: const Text("BLoC + Provider"),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => TopPage3_1(),
+                        builder: (context) => TopPage3_2(),
                         fullscreenDialog: true,
                       ));
                 }),
